@@ -1,49 +1,25 @@
 advent_of_code::solution!(3);
 
-type Bank = Vec<u32>;
+pub fn part_one(input: &str) -> Option<u64> {
+    let banks: Vec<&str> = input.lines().collect();
 
-fn parse(input: &str) -> Vec<Bank> {
-    input
-        .lines()
-        .map(|l| l.chars().map(|b| b.to_digit(10).unwrap()).collect())
-        .collect()
-}
-
-pub fn part_one(input: &str) -> Option<u32> {
-    let banks = parse(input);
-
-    let mut res = 0;
-
-    for bank in banks {
-        let mut max = (0, 0);
-        for (i, &b) in bank.iter().enumerate() {
-            if i == bank.len() - 1 {
-                if b > max.1 {
-                    max.1 = b;
-                }
-            } else if b > max.0 {
-                max.0 = b;
-                max.1 = 0;
-            } else if b > max.1 {
-                max.1 = b;
-            }
-        }
-
-        res += max.0 * 10 + max.1;
-    }
-
-    Some(res)
+    Some(max_joltage(&banks, 2))
 }
 
 pub fn part_two(input: &str) -> Option<u64> {
-    let banks = input.lines();
+    let banks: Vec<&str> = input.lines().collect();
+
+    Some(max_joltage(&banks, 12))
+}
+
+fn max_joltage(banks: &[&str], digits: usize) -> u64 {
     let mut sum = 0;
 
     for b in banks {
         if b.is_empty() {
             continue;
         }
-        let mut removals = b.len() - 12;
+        let mut removals = b.len() - digits;
         let mut stack: Vec<char> = Vec::new();
 
         for battery in b.chars() {
@@ -70,7 +46,7 @@ pub fn part_two(input: &str) -> Option<u64> {
         sum += res.parse::<u64>().unwrap();
     }
 
-    Some(sum)
+    sum
 }
 
 #[cfg(test)]
