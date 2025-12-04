@@ -23,15 +23,13 @@ fn max_joltage(banks: &[&str], digits: usize) -> u64 {
         let mut stack: Vec<char> = Vec::new();
 
         for battery in b.chars() {
-            // Greedy logic: If the current digit is greater than the last one on the stack,
-            // and we still have removals available, pop the smaller digit.
             while removals > 0 {
                 if let Some(&last) = stack.last()
                     && last < battery
                 {
                     stack.pop();
                     removals -= 1;
-                    continue; // Check the new top of stack against current 'c'
+                    continue;
                 }
                 break;
             }
