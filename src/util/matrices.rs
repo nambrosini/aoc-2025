@@ -1,4 +1,4 @@
-pub fn rotate_90_clockwise<T: Clone>(matrix: &Vec<Vec<T>>) -> Vec<Vec<T>> {
+pub fn rotate_90_clockwise<T: Clone>(matrix: &[Vec<T>]) -> Vec<Vec<T>> {
     let rows = matrix.len();
     if rows == 0 { return vec![]; }
     let cols = matrix[0].len();
@@ -16,7 +16,7 @@ pub fn rotate_90_clockwise<T: Clone>(matrix: &Vec<Vec<T>>) -> Vec<Vec<T>> {
     new_matrix
 }
 
-pub fn rotate_90_anticlockwise<T: Clone>(matrix: &Vec<Vec<T>>) -> Vec<Vec<T>> {
+pub fn rotate_90_anticlockwise<T: Clone>(matrix: &[Vec<T>]) -> Vec<Vec<T>> {
     let rows = matrix.len();
     if rows == 0 { return vec![]; }
     let cols = matrix[0].len();
