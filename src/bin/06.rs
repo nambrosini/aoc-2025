@@ -5,7 +5,7 @@ use std::fmt::Display;
 #[derive(Default, Clone)]
 struct Problem {
     numbers: Vec<i128>,
-    operator: String
+    operator: String,
 }
 
 impl Display for Problem {
@@ -28,20 +28,32 @@ impl Problem {
         match op {
             "*" => self.numbers.iter().product(),
             "+" => self.numbers.iter().sum(),
-            _ => unreachable!()
+            _ => unreachable!(),
         }
     }
 }
 
 fn parse(input: &str) -> Vec<Problem> {
     let lines: Vec<&str> = input.trim_end_matches("\n").lines().collect();
-    let operations: Vec<&str> = lines.last().unwrap().split(" ").filter(|x| !x.is_empty()).collect();
+    let operations: Vec<&str> = lines
+        .last()
+        .unwrap()
+        .split(" ")
+        .filter(|x| !x.is_empty())
+        .collect();
 
     let mut problems = vec![Problem::default(); operations.len()];
-    operations.iter().enumerate().for_each(|(i, o)| problems[i].operator = o.to_string());
+    operations
+        .iter()
+        .enumerate()
+        .for_each(|(i, o)| problems[i].operator = o.to_string());
 
-    for l in &lines[..lines.len()-1] {
-        l.split(" ").filter(|x| !x.is_empty()).map(|x| x.trim().parse().unwrap()).enumerate().for_each(|(i, x)| problems[i].numbers.push(x));
+    for l in &lines[..lines.len() - 1] {
+        l.split(" ")
+            .filter(|x| !x.is_empty())
+            .map(|x| x.trim().parse().unwrap())
+            .enumerate()
+            .for_each(|(i, x)| problems[i].numbers.push(x));
     }
 
     problems

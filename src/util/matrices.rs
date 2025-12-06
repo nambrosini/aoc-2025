@@ -1,6 +1,8 @@
 pub fn rotate_90_clockwise<T: Clone>(matrix: &[Vec<T>]) -> Vec<Vec<T>> {
     let rows = matrix.len();
-    if rows == 0 { return vec![]; }
+    if rows == 0 {
+        return vec![];
+    }
     let cols = matrix[0].len();
 
     // Create a new matrix with swapped dimensions (cols becomes rows)
@@ -18,7 +20,9 @@ pub fn rotate_90_clockwise<T: Clone>(matrix: &[Vec<T>]) -> Vec<Vec<T>> {
 
 pub fn rotate_90_anticlockwise<T: Clone>(matrix: &[Vec<T>]) -> Vec<Vec<T>> {
     let rows = matrix.len();
-    if rows == 0 { return vec![]; }
+    if rows == 0 {
+        return vec![];
+    }
     let cols = matrix[0].len();
 
     // Create a new matrix with swapped dimensions
@@ -43,32 +47,18 @@ mod tests {
 
     #[test]
     fn test_rotate_clockwise() {
-        let matrix = vec![
-            vec![1, 2, 3],
-            vec![4, 5, 6]
-        ];
+        let matrix = vec![vec![1, 2, 3], vec![4, 5, 6]];
         let actual = rotate_90_clockwise(&matrix);
-        let expected = vec![
-            vec![4, 1],
-            vec![5, 2],
-            vec![6, 3]
-        ];
+        let expected = vec![vec![4, 1], vec![5, 2], vec![6, 3]];
 
         assert_eq!(actual, expected);
     }
 
     #[test]
     fn test_rotate_anticlockwise() {
-        let matrix = vec![
-            vec![1, 2, 3],
-            vec![4, 5, 6]
-        ];
+        let matrix = vec![vec![1, 2, 3], vec![4, 5, 6]];
         let actual = rotate_90_anticlockwise(&matrix);
-        let expected = vec![
-            vec![3, 6],
-            vec![2, 5],
-            vec![1, 4]
-        ];
+        let expected = vec![vec![3, 6], vec![2, 5], vec![1, 4]];
 
         assert_eq!(actual, expected);
     }
