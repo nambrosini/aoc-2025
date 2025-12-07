@@ -1,5 +1,7 @@
 use std::fmt::Display;
 
+use crate::util::position::Vec2;
+
 #[derive(Debug, Clone)]
 pub struct Grid<T> {
     pub grid: Vec<Vec<T>>,
@@ -7,7 +9,7 @@ pub struct Grid<T> {
 
 impl<T> Grid<T>
 where
-    T: From<char> + Default + Clone + PartialEq,
+    T: From<char> + Default + Copy + PartialEq,
 {
     pub fn from_size(width: usize, height: usize, default: T) -> Grid<T> {
         let grid = vec![vec![default; width]; height];
@@ -58,6 +60,47 @@ where
             }
         }
         count
+    }
+
+    pub fn find(&self, value: &T) -> Option<Vec2> {
+        for (i, row) in self.grid.iter().enumerate() {
+            for (j, cell) in row.iter().enumerate() {
+                if cell == value {
+                    return Some((i, j).into());
+                }
+            }
+        }
+
+        None
+    }
+
+    pub fn find_all(&self, value: &T) -> Vec<Vec2> {
+        let mut found = vec![];
+
+        for (i, row) in self.grid.iter().enumerate() {
+            for (j, cell) in row.iter().enumerate() {
+                if cell == value {
+                    found.push((i, j).into());
+                }
+            }
+        }
+
+        found
+    }
+
+    pub fn is_inbound(&self, pos: Vec2) -> bool {
+        pos.x >= 0
+            && pos.x < self.grid.len() as i64
+            && pos.y >= 0
+            && pos.y < self.grid[0].len() as i64
+    }
+
+    pub fn get(&self, pos: Vec2) -> Option<T> {
+        if !self.is_inbound(pos) {
+            return None;
+        }
+
+        Some(self.grid[pos.x()][pos.y()])
     }
 }
 

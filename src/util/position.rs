@@ -1,3 +1,4 @@
+use std::fmt::Display;
 use std::ops::{Add, Mul, Sub};
 use std::str::FromStr;
 
@@ -75,5 +76,17 @@ impl Mul<i64> for Vec2 {
 
     fn mul(self, rhs: i64) -> Self::Output {
         v(self.x * rhs, self.y * rhs)
+    }
+}
+
+impl From<(usize, usize)> for Vec2 {
+    fn from(value: (usize, usize)) -> Self {
+        Vec2::new(value.0 as i64, value.1 as i64)
+    }
+}
+
+impl Display for Vec2 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "({}, {})", self.x, self.y)
     }
 }
