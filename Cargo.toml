@@ -29,3 +29,4 @@ tinyjson = "2.5.1"
 
 # Solution dependencies
 fancy-regex = "0.16.2"
+aph_disjoint_set = "0.1.1"
